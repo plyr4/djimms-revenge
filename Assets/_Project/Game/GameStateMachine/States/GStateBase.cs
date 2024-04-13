@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public abstract class GStateBase : StateBase
 {
@@ -12,7 +13,7 @@ public abstract class GStateBase : StateBase
             }
             catch (InvalidCastException e)
             {
-                DebugLogger.LogError($"using the wrong context type: InvalidCastException: {e.Message}");
+                Debug.LogError($"using the wrong context type: InvalidCastException: {e.Message}");
                 return null;
             }
         }

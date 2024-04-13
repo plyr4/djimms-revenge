@@ -23,4 +23,9 @@ public class GStateFactory : StateFactory
     {
         return new GStatePressStart(_context, this);
     }
+    
+    public GStateBase Play()
+    {
+        return new GStatePlay(_context, this);
+    }
 }

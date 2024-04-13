@@ -19,18 +19,23 @@ public class GStateMachineGame : GStateMachineMono
         GStateBase nan = ((GStateFactory)_stateFactory).Null();
         GStateBase init = ((GStateFactory)_stateFactory).Init();
         GStateBase pressStartIn = ((GStateFactory)_stateFactory).PressStartIn();
+        GStateBase pressStart = ((GStateFactory)_stateFactory).PressStart();
+        GStateBase play = ((GStateFactory)_stateFactory).Play();
 
         // transitions
-        // at(nan, init, new FuncPredicate(() =>
-        //     true
-        // ));
-        // at(pressStartIn, pressStartIn, new FuncPredicate(() =>
-        //     _initDone
-        // ));
-        // at(pressStartIn, pressStart, new FuncPredicate(() =>
-        //     _pressStartInDone
-        // ));
+        at(nan, init, new FuncPredicate(() =>
+            true
+        ));
+        at(init, pressStartIn, new FuncPredicate(() =>
+        _initDone
+        ));
+        at(pressStartIn, pressStart, new FuncPredicate(() =>
+            _pressStartInDone
+        ));
+        at(pressStart, play, new FuncPredicate(() =>
+            _startPlay
+        ));
 
-        // _stateMachine.SetState(nan);
+        _stateMachine.SetState(nan);
     }
 }
