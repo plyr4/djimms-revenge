@@ -55,6 +55,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""LookPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""e59ce929-1ebb-49d4-9d3f-a2d17a3a9821"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""MenuCategoryLeft"",
                     ""type"": ""PassThrough"",
                     ""id"": ""e6bd0fe0-ad36-4491-a9e0-1447461f6a32"",
@@ -927,6 +936,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7fb603e9-4ca9-47de-abac-af6c5d88ee36"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""LookPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -986,6 +1006,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_HorizontalMove = m_Player.FindAction("HorizontalMove", throwIfNotFound: true);
         m_Player_VerticalMove = m_Player.FindAction("VerticalMove", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_LookPosition = m_Player.FindAction("LookPosition", throwIfNotFound: true);
         m_Player_MenuCategoryLeft = m_Player.FindAction("MenuCategoryLeft", throwIfNotFound: true);
         m_Player_MenuCategoryRight = m_Player.FindAction("MenuCategoryRight", throwIfNotFound: true);
         m_Player_Action = m_Player.FindAction("Action", throwIfNotFound: true);
@@ -1063,6 +1084,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_HorizontalMove;
     private readonly InputAction m_Player_VerticalMove;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_LookPosition;
     private readonly InputAction m_Player_MenuCategoryLeft;
     private readonly InputAction m_Player_MenuCategoryRight;
     private readonly InputAction m_Player_Action;
@@ -1085,6 +1107,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @HorizontalMove => m_Wrapper.m_Player_HorizontalMove;
         public InputAction @VerticalMove => m_Wrapper.m_Player_VerticalMove;
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @LookPosition => m_Wrapper.m_Player_LookPosition;
         public InputAction @MenuCategoryLeft => m_Wrapper.m_Player_MenuCategoryLeft;
         public InputAction @MenuCategoryRight => m_Wrapper.m_Player_MenuCategoryRight;
         public InputAction @Action => m_Wrapper.m_Player_Action;
@@ -1118,6 +1141,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @LookPosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookPosition;
+                @LookPosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookPosition;
+                @LookPosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookPosition;
                 @MenuCategoryLeft.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuCategoryLeft;
                 @MenuCategoryLeft.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuCategoryLeft;
                 @MenuCategoryLeft.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuCategoryLeft;
@@ -1176,6 +1202,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @LookPosition.started += instance.OnLookPosition;
+                @LookPosition.performed += instance.OnLookPosition;
+                @LookPosition.canceled += instance.OnLookPosition;
                 @MenuCategoryLeft.started += instance.OnMenuCategoryLeft;
                 @MenuCategoryLeft.performed += instance.OnMenuCategoryLeft;
                 @MenuCategoryLeft.canceled += instance.OnMenuCategoryLeft;
@@ -1266,6 +1295,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnHorizontalMove(InputAction.CallbackContext context);
         void OnVerticalMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnLookPosition(InputAction.CallbackContext context);
         void OnMenuCategoryLeft(InputAction.CallbackContext context);
         void OnMenuCategoryRight(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);

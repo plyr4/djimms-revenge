@@ -33,6 +33,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "LookPosition",
+                    "type": "Value",
+                    "id": "e59ce929-1ebb-49d4-9d3f-a2d17a3a9821",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "MenuCategoryLeft",
                     "type": "PassThrough",
                     "id": "e6bd0fe0-ad36-4491-a9e0-1447461f6a32",
@@ -903,6 +912,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fb603e9-4ca9-47de-abac-af6c5d88ee36",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "LookPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

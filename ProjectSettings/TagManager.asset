@@ -30,13 +30,13 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Environment
+  - Lamp
+  - Bounds
+  - Genie
+  - Spirit
+  - Missile
+  - Player
   m_SortingLayers:
   - name: Default
     uniqueID: 0
