@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,11 +25,13 @@ public class Missile : MonoBehaviour
 
     private Rigidbody _rb;
 
-    public void Initialize(Aimer aimer, Shooter shooter)
+    public GenericEvent _dropEvent;
+
+    public void Initialize(PlayerAim aimer, PlayerShoot shoot)
     {
         transform.position = aimer.LaunchPosition();
         _launchDirection = aimer.LaunchDirection();
-        _charge = shooter.GetCharge();
+        _charge = shoot.GetCharge();
     }
 
     private void Start()
@@ -44,7 +47,7 @@ public class Missile : MonoBehaviour
         Spirit spirit = other.gameObject.GetComponent<Spirit>();
         if (spirit != null)
         {
-            spirit.Kill();
+            spirit.Kill(other.GetContact(0).point);
             gameObject.SetActive(false);
         }
 
@@ -52,12 +55,14 @@ public class Missile : MonoBehaviour
         if (ground != null)
         {
             StartCoroutine(deactivate());
+            _dropEvent.Invoke(new GenericEventOpts());
         }
     }
 
     IEnumerator deactivate()
     {
         yield return new WaitForSeconds(2);
-        gameObject.SetActive(false);
+        Tween tween = transform.DOScale(Vector3.zero, 0.5f).OnComplete(
+            () => { gameObject.SetActive(false); });
     }
 }
