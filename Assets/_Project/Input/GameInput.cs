@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Project.Input
 {
@@ -27,11 +28,34 @@ namespace Project.Input
             }
         }
 
+        [ReadOnlyInspector]
         public bool _fire;
+        [ReadOnlyInspector]
         public bool _firePressed;
+        [ReadOnlyInspector]
+        public bool _fireReleased;
+        [ReadOnlyInspector]
+        public bool _fireAlt;
+        [ReadOnlyInspector]
+        public bool _fireAltPressed;
+        [ReadOnlyInspector]
+        public bool _fireAltReleased;
+        [ReadOnlyInspector]
+        public bool _jump;
+        [ReadOnlyInspector]
+        public bool _jumpPressed;
+        [ReadOnlyInspector]
+        public bool _jumpReleased;
+        [ReadOnlyInspector]
         public Vector3 _horizontalMovement;
+        [ReadOnlyInspector]
+        public Vector3 _verticalMovement;
+        [ReadOnlyInspector]
         public Vector3 _look;
+        [ReadOnlyInspector]
         public Vector3 _lookPosition;
+        [ReadOnlyInspector]
+        public string _controlScheme;
 
         private void Start()
         {
@@ -39,9 +63,19 @@ namespace Project.Input
             _ = Instance;
         }
 
+        public void OnControlsChanged(PlayerInput playerInput)
+        {
+            _controlScheme = playerInput.currentControlScheme;
+        }
+
         public void OnHorizontalMove(InputAction.CallbackContext context)
         {
             _horizontalMovement = context.ReadValue<Vector2>();
+        }
+
+        public void OnVerticalMove(InputAction.CallbackContext context)
+        {
+            _verticalMovement = context.ReadValue<Vector2>();
         }
 
         public void OnLook(InputAction.CallbackContext context)
@@ -59,6 +93,23 @@ namespace Project.Input
             if (!ShouldReceiveInput()) return;
             _fire = context.action.IsPressed();
             _firePressed = context.action.WasPressedThisFrame();
+            _fireReleased = context.action.WasReleasedThisFrame();
+        }
+
+        public void OnFireAlt(InputAction.CallbackContext context)
+        {
+            if (!ShouldReceiveInput()) return;
+            _fireAlt = context.action.IsPressed();
+            _fireAltPressed = context.action.WasPressedThisFrame();
+            _fireAltReleased = context.action.WasReleasedThisFrame();
+        }
+        
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            if (!ShouldReceiveInput()) return;
+            _jump = context.action.IsPressed();
+            _jumpPressed = context.action.WasPressedThisFrame();
+            _jumpReleased = context.action.WasReleasedThisFrame();
         }
 
         private bool ShouldReceiveInput()

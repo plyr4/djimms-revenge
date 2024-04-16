@@ -87,9 +87,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "AltFire",
+                    "name": "FireAlt",
                     "type": "PassThrough",
                     "id": "23f893b8-6dfd-4bba-af99-7d8d303a603d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "PassThrough",
+                    "id": "f737f029-e6d4-432c-b0e5-3afef368122f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -394,7 +403,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "AltFire",
+                    "action": "FireAlt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -405,7 +414,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "AltFire",
+                    "action": "FireAlt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -923,6 +932,28 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "LookPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "403e3922-30ba-40e1-9116-afaf9e3f023d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c573fcd5-766c-437d-a223-7fff84b54c41",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
