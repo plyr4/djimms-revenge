@@ -10,9 +10,6 @@ public class GStatePlay : GStateBase
 
         if (_context == null) return;
 
-        _context._startPlay = false;
-
-        // todo: fix, track previous state when changing state
-        _context._onGameStateChange.Invoke(this, this);
+        _context._startOnPlay = false;
     }
 }

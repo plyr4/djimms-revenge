@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game State Event", fileName = "New Game State Event")]
 public class GameStateEvent : GameEventBase
 {
-    public void Invoke(GStateBase previousState, GStateBase nextState)
+    public void Invoke(GStateBase previousState, GStateBase nextState= null)
     {
         if (_debug && Application.isPlaying)
         {

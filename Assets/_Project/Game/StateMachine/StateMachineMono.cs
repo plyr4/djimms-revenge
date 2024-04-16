@@ -2,6 +2,28 @@ using UnityEngine;
 
 public abstract class StateMachineMono : MonoBehaviour
 {
+    private static StateMachineMono _instance;
+    public static StateMachineMono Instance
+    {
+        get
+        {
+            // attempt to locate the singleton
+            if (_instance == null)
+            {
+                _instance = (StateMachineMono)FindObjectOfType(typeof(StateMachineMono));
+            }
+
+            // create a new singleton
+            if (_instance == null)
+            {
+                _instance = (new GameObject("GameManager")).AddComponent<StateMachineMono>();
+            }
+
+            // return singleton
+            return _instance;
+        }
+    }
+
     protected StateMachine _stateMachine;
     protected StateFactory _stateFactory;
     [SerializeField]
@@ -15,7 +37,8 @@ public abstract class StateMachineMono : MonoBehaviour
     [SerializeField]
     [ReadOnlyInspector]
     protected string[] _transitions;
-
+    [SerializeField]
+    public GenericEvent _onStateChangeEvent;
     public virtual void Start()
     {
     }
@@ -42,6 +65,8 @@ public abstract class StateMachineMono : MonoBehaviour
         _stateMachine = stateMachine;
         _stateFactory = factory;
     }
+    
+    public static IState GetCurrentState() => Instance._stateMachine._current._state;
 
     // a state transition with a from, to, and condition
     protected void at(IState from, IState to, IPredicate condition) => _stateMachine.AddTransition(from, to, condition);

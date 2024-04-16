@@ -15,6 +15,14 @@ public abstract class StateBase : IState
 
     public virtual void OnEnter()
     {
+        if (_context._onStateChangeEvent != null)
+        {
+            GenericEventOpts opts = new GenericEventOpts
+            {
+                _newState = this
+            };
+            _context._onStateChangeEvent.Invoke(opts);
+        }
     }
 
     public virtual void Update()
