@@ -1,6 +1,6 @@
-public class GStatePressStartIn : GStateBase
+public class GStateStartIn : GStateBase
 {
-    public GStatePressStartIn(StateMachineMono context, StateFactory factory) : base(context, factory)
+    public GStateStartIn(StateMachineMono context, StateFactory factory) : base(context, factory)
     {
     }
 
@@ -10,7 +10,7 @@ public class GStatePressStartIn : GStateBase
 
         if (_context == null) return;
 
-        _context._pressStartInDone = true;
+        _context._startInDone = true;
     }
 
     public override void OnExit()
@@ -18,7 +18,5 @@ public class GStatePressStartIn : GStateBase
         base.OnExit();
 
         if (_context == null) return;
-
-        _context._pressStartInDone = false;
     }
 }
