@@ -25,6 +25,7 @@ public class Collectible : MonoBehaviour
         gameObject.SetActive(false);
         _smokePuff.transform.parent = null;
         _smokePuff.transform.position = transform.position - new Vector3(0f,0.2f,0f);
+        _smokePuff.transform.rotation = Quaternion.Euler(90f,0f,0f);
         _smokePuff.transform.localScale = Vector3.one;
         _smokePuff.gameObject.SetActive(true);
         _smokePuff.Play();
