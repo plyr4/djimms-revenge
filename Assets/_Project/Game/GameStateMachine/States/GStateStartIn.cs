@@ -18,5 +18,6 @@ public class GStateStartIn : GStateBase
         base.OnExit();
 
         if (_context == null) return;
+        _context._startInDone = false;
     }
 }

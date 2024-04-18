@@ -16,7 +16,7 @@ public class GStateRetry : GStateBase
         if (_context == null) return;
 
         _context._loadRetryDone = false;
-
+        _context._gameOverRetry = false;
 
         Scene play = SceneManager.GetSceneByName("Play");
         if (play != null && play.isLoaded)
@@ -46,5 +46,6 @@ public class GStateRetry : GStateBase
         if (_context == null) return;
 
         _context._loadRetryDone = false;
+        _context._gameOverRetry = false;
     }
 }

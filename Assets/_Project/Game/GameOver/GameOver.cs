@@ -27,11 +27,12 @@ public class GameOver : MonoBehaviour
     private float _fadeInDelay = 0.5f;
     [SerializeField]
     private Ease _fadeInEase = Ease.OutBack;
-
-
+    
     private void Start()
     {
         _viewParent.SetActive(false);
+        _scaler.transform.localScale = Vector3.zero;
+        StopAllCoroutines();
     }
 
     public void HandleRetry()
@@ -61,10 +62,13 @@ public class GameOver : MonoBehaviour
     {
         switch (opts._newState)
         {
+            case GStateRetryIn _:
             case GStateRetry _:
                 _scaler.transform.localScale = Vector3.zero;
+                StopAllCoroutines();
                 break;
             case GStateGameOver _:
+                StopAllCoroutines();
                 StartCoroutine(open());
                 break;
             // case GStateGameOverRetry _:
