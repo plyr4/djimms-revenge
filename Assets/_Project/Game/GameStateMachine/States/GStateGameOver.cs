@@ -9,5 +9,7 @@ public class GStateGameOver : GStateBase
         base.OnEnter();
 
         if (_context == null) return;
+        
+        _context._gameOver = false;
     }
 }

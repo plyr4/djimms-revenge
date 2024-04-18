@@ -32,8 +32,8 @@ public class Dialogue : MonoBehaviour
     private float _windowScaleDuration = 0.3f;
     [SerializeField]
     private float _textShowedCloseDelay = 5f;
-    [SerializeField]
-    private float _confirmCloseDelay = 0.1f;
+    // [SerializeField]
+    // private float _confirmCloseDelay = 0.1f;
 
     [Header("Debug")]
     [SerializeField]

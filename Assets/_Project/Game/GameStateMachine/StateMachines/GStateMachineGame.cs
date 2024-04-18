@@ -79,18 +79,24 @@ public class GStateMachineGame : GStateMachineMono
         at(pause, retryIn, new FuncPredicate(() =>
             false
         ));
-
+        
+        at(gameOver, retryIn, new FuncPredicate(() =>
+            _gameOverRetry
+        ));
+        
         at(retryIn, retry, new FuncPredicate(() =>
-            false
+            _retryInDone
         ));
 
         at(retry, play, new FuncPredicate(() =>
-            false
+            _loadRetryDone
         ));
 
         at(play, gameOver, new FuncPredicate(() =>
             _gameOver
         ));
+
+ 
 
         _stateMachine.SetState(nan);
     }
@@ -117,6 +123,11 @@ public class GStateMachineGame : GStateMachineMono
                 _introDone = true;
 
                 break;
+            case GStateRetryIn:
+                _retryInDone = true;
+                break; 
+            case GStateRetry:
+                break; 
             case GStatePauseQuit:
             case GStateGameOver:
                 // if (opts._isGameOverQuit)
@@ -141,6 +152,9 @@ public class GStateMachineGame : GStateMachineMono
         {
             case GStateLoadPlay:
                 _loadPlayDone = true;
+                break;
+            case GStateRetry:
+                _loadRetryDone = true;
                 break;
         }
     }
@@ -182,7 +196,7 @@ public class GStateMachineGame : GStateMachineMono
 
     public void HandleGameOverRetry(GenericEventOpts opts)
     {
-        ScreenTransition.Instance.Close();
+        _gameOverRetry = true;
     }
 
     public void HandleGameOverQuit(GenericEventOpts opts)

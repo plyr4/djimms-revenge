@@ -18,10 +18,10 @@ public class Intro : MonoBehaviour
     // [SerializeField]
     // private GameObject _scaler;
     // private Sequence _menuTween;
-    [SerializeField]
-    private float _fadeInDuration = 0.5f;
-    [SerializeField]
-    private Ease _fadeInEase = Ease.InOutQuad;
+    // [SerializeField]
+    // private float _fadeInDuration = 0.5f;
+    // [SerializeField]
+    // private Ease _fadeInEase = Ease.InOutQuad;
     [SerializeField]
     private GameObject _inGameStuffViewParent;
     [SerializeField]
@@ -48,8 +48,8 @@ public class Intro : MonoBehaviour
     [SerializeField]
     private GameObject _genieShakeParent;
     private Sequence _genieShakeTween;
-    [SerializeField]
-    private Ease _genieShakeEase = Ease.InOutBounce;
+    // [SerializeField]
+    // private Ease _genieShakeEase = Ease.InOutBounce;
     [SerializeField]
     private Vector3 _genieShakeStrength = new Vector3(0.01f, 0.08f, 0f);
 

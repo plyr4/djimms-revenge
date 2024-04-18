@@ -41,24 +41,25 @@ public class SoundManager : MonoBehaviour
 
     public float _volume = 0.2f;
     public bool _mute = false;
+    public bool _initialized = false;
 
-    public void Start()
+    public IEnumerator Start()
     {
+        yield return new WaitForSecondsRealtime(2f);
         // play theme in loop
         _theme.loop = true;
-        _theme.PlayScheduled(0);
+        InvokeRepeating(nameof(PlayTheme), 1f, _theme.clip.length + 0.5f);
         _popVolume = _pop.volume;
         _thudVolume = _thud.volume;
         _whooshVolume = _whoosh.volume;
         UpdateVolume(_volume);
         Mute(_mute);
+        _initialized = true;
     }
 
-    void Update()
+    public void PlayTheme()
     {
-        // Play the audio for this image
-        if (_theme.isPlaying != true)
-            AudioSource.PlayClipAtPoint(_theme.clip, transform.position);
+        AudioSource.PlayClipAtPoint(_theme.clip, transform.position);
     }
 
     public void UpdateVolume(float volume)
@@ -73,17 +74,17 @@ public class SoundManager : MonoBehaviour
 
     public void PlayPop(GenericEventOpts opts)
     {
-        _pop.PlayOneShot(_pop.clip);
+        AudioSource.PlayClipAtPoint(_pop.clip, transform.position);
     }
 
     public void PlayThud(GenericEventOpts opts)
     {
-        _thud.PlayOneShot(_thud.clip);
+        AudioSource.PlayClipAtPoint(_thud.clip, transform.position);
     }
 
     public void PlayWhoosh(GenericEventOpts opts)
     {
-        _whoosh.PlayOneShot(_whoosh.clip);
+        AudioSource.PlayClipAtPoint(_whoosh.clip, transform.position);
     }
 
     public void Mute(bool m)

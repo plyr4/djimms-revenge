@@ -9,5 +9,18 @@ public class GStateRetryIn : GStateBase
         base.OnEnter();
 
         if (_context == null) return;
+
+        _context._retryInDone = false;
+
+        ScreenTransition.Instance.Close();
+    }
+    
+    public override void OnExit()
+    {
+        base.OnExit();
+
+        if (_context == null) return;
+
+        _context._retryInDone = false;
     }
 }

@@ -5,35 +5,20 @@ using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
-    private static Collector _instance;
-    public static Collector Instance
-    {
-        get
-        {
-            // attempt to locate the singleton
-            if (_instance == null)
-            {
-                _instance = (Collector)FindObjectOfType(typeof(Collector));
-            }
-
-            // create a new singleton
-            if (_instance == null)
-            {
-                _instance = (new GameObject("Collector")).AddComponent<Collector>();
-            }
-
-            // return singleton
-            return _instance;
-        }
-    }
-
     public Vector3 _overlapDimension = Vector3.one;
     public Vector3 _overlapOffset = Vector3.one;
     public LayerMask _collectibleLayerMask;
     public int _collected = 0;
     public GenericEvent _gameWinEvent;
     public GenericEvent _collectEvent;
+    public bool _gameWon = false;
 
+    private void Start()
+    {
+        _collected = 0;
+        _gameWon = false;    
+    }
+    
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position + _overlapOffset, _overlapDimension);
@@ -41,6 +26,10 @@ public class Collector : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_gameWon)
+        {
+            return;
+        }
         Collider[] colliders = Physics.OverlapBox(transform.position + _overlapOffset, _overlapDimension,
             Quaternion.identity,
             _collectibleLayerMask);
@@ -51,9 +40,11 @@ public class Collector : MonoBehaviour
             {
                 collectible.Collect();
                 _collected++;
-                _collectEvent.Invoke(new GenericEventOpts());
-                if (_collected == 3)
+                _collectEvent.Invoke(new GenericEventOpts(
+                ) { _collector = this });
+                if (_collected >= 3)
                 {
+                    _gameWon = true;
                     GenericEventOpts opts = new GenericEventOpts();
                     _gameWinEvent.Invoke(opts);
                 }

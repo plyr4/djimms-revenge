@@ -39,6 +39,11 @@ public class PlayerAim : MonoBehaviour
     [SerializeField]
     private GameObject _prop;
 
+    private void Start()
+    {
+        if (_camera == null) _camera = Camera.main;
+    }
+    
     private void FixedUpdate()
     {
         switch (GStateMachineGame.GetCurrentState())
@@ -61,6 +66,8 @@ public class PlayerAim : MonoBehaviour
 
     private void Update()
     {
+        if (_camera == null) _camera = Camera.main;
+
         _verticalMovement = GameInput.Instance._verticalMovement;
         _lookPosition = Project.Input.GameInput.Instance._lookPosition;
         _mouseWorldPosition = _camera.ScreenToWorldPoint(_lookPosition);

@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Waypoint
-  - MovingPlatform
-  - Ground
-  - Wall
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -29,18 +25,18 @@ TagManager:
   - 
   - 
   - 
-  - GameRender
   - 
   - 
-  - Collectible
   - 
-  - Environment
-  - Lamp
-  - Bounds
-  - Genie
-  - Spirit
-  - Missile
-  - Player
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0

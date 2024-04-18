@@ -59,7 +59,17 @@ public class GStateMachineMono : StateMachineMono
 
     [SerializeField]
     // [ReadOnlyInspector]
+    public bool _loadRetryDone;
+
+    [SerializeField]
+    // [ReadOnlyInspector]
     public bool _gameOver;
+    [SerializeField]
+    // [ReadOnlyInspector]
+    public bool _gameOverRetry;
+    [SerializeField]
+    // [ReadOnlyInspector]
+    public bool _retryInDone;
     [SerializeField]
     // [ReadOnlyInspector]
     public bool _win;

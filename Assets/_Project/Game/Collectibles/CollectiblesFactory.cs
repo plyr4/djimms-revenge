@@ -17,6 +17,8 @@ public class CollectiblesFactory : MonoBehaviour
     void Start()
     {
         StopAllCoroutines();
+        CancelInvoke(nameof(spawnReady));
+        Invoke(nameof(spawnReady), _initialSpawnDelay);
     }
 
     public void HandleOnGameStateChange(GenericEventOpts opts)
@@ -25,11 +27,8 @@ public class CollectiblesFactory : MonoBehaviour
         {
             case GStateNull _:
                 break;
+            case GStateRetry _:
             case GStateLoadPlay _:
-                StopAllCoroutines();
-                CancelInvoke(nameof(spawnReady));
-                Debug.Log("invoking spawnReady in " + _initialSpawnDelay + " seconds");
-                Invoke(nameof(spawnReady), _initialSpawnDelay);
                 break;
             default:
                 break;
@@ -42,7 +41,6 @@ public class CollectiblesFactory : MonoBehaviour
         {
             // choose random spawn point position
             int index = Random.Range(0, _spawnPoints.Length);
-            Debug.Log("using index " + index + " for spawn point");
             Transform spawnPoint = _spawnPoints[index];
             Collider[] colliders = Physics.OverlapSphere(spawnPoint.position, _overlapCheckSize, _playerLayerMask);
             if (colliders.Length > 0)
@@ -69,7 +67,6 @@ public class CollectiblesFactory : MonoBehaviour
 
     void spawnReady()
     {
-        Debug.Log("spawn is ready");
         _spawnReady = true;
     }
 

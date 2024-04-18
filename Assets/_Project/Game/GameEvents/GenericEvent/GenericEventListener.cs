@@ -7,6 +7,8 @@ public class GenericEventOpts
     public StateBase _newState;
     public PlayerCollision _playerCollision;
     public DialogueParams _dialogueParams;
+    public bool _retry;
+    public Collector _collector;
 }
 
 [Serializable]

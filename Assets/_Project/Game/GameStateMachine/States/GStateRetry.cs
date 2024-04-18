@@ -1,3 +1,8 @@
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class GStateRetry : GStateBase
 {
     public GStateRetry(StateMachineMono context, StateFactory factory) : base(context, factory)
@@ -9,5 +14,37 @@ public class GStateRetry : GStateBase
         base.OnEnter();
 
         if (_context == null) return;
+
+        _context._loadRetryDone = false;
+
+
+        Scene play = SceneManager.GetSceneByName("Play");
+        if (play != null && play.isLoaded)
+        {
+            CoroutineRunner.instance.StartCoroutine(unloadScene());
+        }
+        else
+        {
+            SceneManager.LoadScene("Play", LoadSceneMode.Additive);
+        
+            ScreenTransition.Instance.DelayedOpen(1f);   
+        }
+    }
+
+    IEnumerator unloadScene()
+    {
+        SceneManager.UnloadSceneAsync("Play");
+        yield return new WaitForSecondsRealtime(2f);
+        SceneManager.LoadScene("Play", LoadSceneMode.Additive);
+        ScreenTransition.Instance.DelayedOpen(1f);  
+    }
+    
+    public override void OnExit()
+    {
+        base.OnExit();
+
+        if (_context == null) return;
+
+        _context._loadRetryDone = false;
     }
 }

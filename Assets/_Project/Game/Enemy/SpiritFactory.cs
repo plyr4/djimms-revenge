@@ -21,6 +21,8 @@ public class SpiritFactory : MonoBehaviour
     private float _spawnIntervalDecreaseRate = 0.05f;
     [SerializeField]
     private float _initialSpawnDelay = 1f;
+    [SerializeField]
+    private Transform[] _spawnPoints;
 
     void Start()
     {
@@ -45,7 +47,9 @@ public class SpiritFactory : MonoBehaviour
     IEnumerator SpawnSpiritChained(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SpawnSpirit(transform.position);
+        int index = Random.Range(0, _spawnPoints.Length);
+        Vector3 spawnPosition = _spawnPoints[index].position;
+        SpawnSpirit(spawnPosition);
         float f = Random.Range(0.8f, 1.2f);
         float interval = _currentSpawnInterval * f;
         _currentSpawnInterval = Mathf.Max(_minSpawnInterval, _currentSpawnInterval - _spawnIntervalDecreaseRate);

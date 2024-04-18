@@ -38,6 +38,7 @@ public class GameOver : MonoBehaviour
     {
         GenericEventOpts opts = new GenericEventOpts
         {
+            _retry = true
         };
         _onGameOverRetryEvent.Invoke(opts);
     }
@@ -60,30 +61,11 @@ public class GameOver : MonoBehaviour
     {
         switch (opts._newState)
         {
-            case GStateGameOver _:
-
-                if (_win)
-                {
-                    _title.text = "YOU WIN";
-                    _title.color = _winTitleColor;
-                    _subtitle.text = "YOUR WISHES COME TRUE";
-                    _info.gameObject.transform.parent.gameObject.SetActive(true);
-                    _info.text = "DONT WORRY, DJIMM CAN REST NOW";
-                }
-
-                gameObject.SetActive(true);
-                _viewParent.SetActive(true);
+            case GStateRetry _:
                 _scaler.transform.localScale = Vector3.zero;
-                if (_menuTween != null)
-                {
-                    _menuTween.Kill();
-                    _menuTween = null;
-                }
-
-                _menuTween = DOTween.Sequence();
-                _menuTween.Insert(0f, _scaler.transform.DOScale(Vector3.one, _fadeInDuration)
-                    .SetDelay(_fadeInDelay)
-                    .SetEase(_fadeInEase));
+                break;
+            case GStateGameOver _:
+                StartCoroutine(open());
                 break;
             // case GStateGameOverRetry _:
             //     if (_menuTween != null)
@@ -108,5 +90,33 @@ public class GameOver : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    IEnumerator open()
+    {
+        yield return new WaitForSeconds(0.9f);
+        
+        if (_win)
+        {
+            _title.text = "YOU WIN";
+            _title.color = _winTitleColor;
+            _subtitle.text = "YOUR WISHES COME TRUE";
+            _info.gameObject.transform.parent.gameObject.SetActive(true);
+            _info.text = "DONT WORRY, DJIMM CAN REST NOW";
+        }
+
+        gameObject.SetActive(true);
+        _viewParent.SetActive(true);
+        _scaler.transform.localScale = Vector3.zero;
+        if (_menuTween != null)
+        {
+            _menuTween.Kill();
+            _menuTween = null;
+        }
+
+        _menuTween = DOTween.Sequence();
+        _menuTween.Insert(0f, _scaler.transform.DOScale(Vector3.one, _fadeInDuration)
+            .SetDelay(_fadeInDelay)
+            .SetEase(_fadeInEase));
     }
 }
